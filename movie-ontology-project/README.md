@@ -25,8 +25,8 @@ Design and implement an IMDb-like Movie Knowledge Graph that:
 
 | Name | Student ID | Email |
 |------|-----------|-------|
-| Gülsüm Ceylan | 220316065 | gulsum@example.edu |
-| Furkan Üstüncan | 220316049 | furkan@example.edu |
+| Gülsüm Ceylan | 220316065 | 220316065@ogr.cbu.edu.tr |
+| Furkan Üstüncan | 220316049 | 220316049@ogr.cbu.edu.tr |
 
 ---
 
