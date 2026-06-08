@@ -1,0 +1,11 @@
+wikidata_qid,imdb_id,local_iri,note
+Q25188,tt1375666,Inception,already in v1
+Q83495,tt0468569,TheDarkKnight,already in v1
+Q104123,tt0110912,PulpFiction,already in v1
+Q150827,tt0108052,SchindlersList,already in v1
+Q127367,tt0120737,FellowshipOfTheRing,added in v2
+Q131074,tt0167260,ReturnOfTheKing,added in v2
+Q120955,tt0121765,StarWarsEpisodeII,candidate for v3
+Q172241,tt0468569,TheMatrix,candidate for v3
+Q190050,tt0099685,Goodfellas,candidate for v3
+Q189869,tt0114709,ToyStory,candidate for v3

@@ -1,0 +1,186 @@
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix m:     <http://www.semanticweb.org/movieontology#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+
+#
+# SHACL shapes for the Movie Knowledge Graph Ontology (v2.1).
+# Run with pySHACL:
+#   pip install pyshacl
+#   pyshacl -s shapes/movie-shapes.ttl -m -i rdfs -e movie-ontology.owl movie-ontology.owl
+#
+
+# ─────────────────────────────────────────────
+#  Movie shape — strict completeness rules
+# ─────────────────────────────────────────────
+m:MovieShape
+    a sh:NodeShape ;
+    sh:targetClass m:Movie ;
+    rdfs:label "Movie completeness shape" ;
+
+    # Every movie must have exactly one title.
+    sh:property [
+        sh:path m:title ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Every Movie must have exactly one m:title (xsd:string)."
+    ] ;
+
+    # Every movie must have a release year between 1888 and 2050.
+    sh:property [
+        sh:path m:releaseYear ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1888 ;
+        sh:maxInclusive 2050 ;
+        sh:message "Every Movie must have a m:releaseYear between 1888 and 2050."
+    ] ;
+
+    # Every movie must have at least one director.
+    sh:property [
+        sh:path m:hasDirector ;
+        sh:minCount 1 ;
+        sh:class m:Director ;
+        sh:message "Every Movie must have at least one m:hasDirector pointing to a m:Director."
+    ] ;
+
+    # Every movie must have at least one genre.
+    sh:property [
+        sh:path m:hasGenre ;
+        sh:minCount 1 ;
+        sh:class m:Genre ;
+        sh:message "Every Movie must have at least one m:hasGenre."
+    ] ;
+
+    # IMDb rating, if present, must be in [0, 10].
+    sh:property [
+        sh:path m:imdbRating ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.0 ;
+        sh:maxInclusive 10.0 ;
+        sh:message "m:imdbRating must be a single xsd:float in [0,10]."
+    ] ;
+
+    # Duration, if present, must be positive.
+    sh:property [
+        sh:path m:duration ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minExclusive 0 ;
+        sh:message "m:duration must be a positive integer (minutes)."
+    ] .
+
+
+# ─────────────────────────────────────────────
+#  Person shape
+# ─────────────────────────────────────────────
+m:PersonShape
+    a sh:NodeShape ;
+    sh:targetClass m:Person ;
+    rdfs:label "Person completeness shape" ;
+
+    sh:property [
+        sh:path m:fullName ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Every Person must have exactly one m:fullName."
+    ] ;
+
+    sh:property [
+        sh:path m:birthDate ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:date ;
+        sh:message "m:birthDate must be a single xsd:date if present."
+    ] .
+
+
+# ─────────────────────────────────────────────
+#  TVSeries shape
+# ─────────────────────────────────────────────
+m:TVSeriesShape
+    a sh:NodeShape ;
+    sh:targetClass m:TVSeries ;
+    rdfs:label "TV Series completeness shape" ;
+
+    sh:property [
+        sh:path m:title ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Every TVSeries must have exactly one m:title."
+    ] ;
+
+    sh:property [
+        sh:path m:releaseYear ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1920 ;
+        sh:maxInclusive 2050 ;
+        sh:message "Every TVSeries must have a valid m:releaseYear."
+    ] ;
+
+    sh:property [
+        sh:path m:imdbRating ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.0 ;
+        sh:maxInclusive 10.0 ;
+        sh:message "m:imdbRating must be in [0,10] if present."
+    ] .
+
+
+# ─────────────────────────────────────────────
+#  Episode shape
+# ─────────────────────────────────────────────
+m:EpisodeShape
+    a sh:NodeShape ;
+    sh:targetClass m:Episode ;
+    rdfs:label "Episode completeness shape" ;
+
+    sh:property [
+        sh:path m:episodeOf ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class m:TVSeries ;
+        sh:message "Every Episode must link to exactly one m:TVSeries via m:episodeOf."
+    ] ;
+
+    sh:property [
+        sh:path m:episodeNumber ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minExclusive 0 ;
+        sh:message "m:episodeNumber must be a single positive integer."
+    ] ;
+
+    sh:property [
+        sh:path m:seasonNumber ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minExclusive 0 ;
+        sh:message "m:seasonNumber must be a single positive integer."
+    ] .
+
+
+# ─────────────────────────────────────────────
+#  StreamingPlatform shape
+# ─────────────────────────────────────────────
+m:StreamingPlatformShape
+    a sh:NodeShape ;
+    sh:targetClass m:StreamingPlatform ;
+    rdfs:label "Streaming Platform completeness shape" ;
+
+    sh:property [
+        sh:path rdfs:label ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Every StreamingPlatform must have at least one rdfs:label."
+    ] .

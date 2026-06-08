@@ -1,0 +1,50 @@
+SHACL Validation Report — Movie Knowledge Graph Ontology v2.1
+============================================================
+Validation tool : pySHACL (pyshacl>=0.25)
+Command         : pyshacl -s shapes/movie-shapes.ttl -i none movie-ontology.owl
+Shapes file     : shapes/movie-shapes.ttl
+Data file       : movie-ontology.owl
+Date            : 2026-05-11
+
+Conforms: TRUE — No violations detected.
+
+--- Summary ---
+Shapes evaluated  : 5 (MovieShape, PersonShape, TVSeriesShape, EpisodeShape, StreamingPlatformShape)
+Individuals tested: 48 named individuals
+Violations found  : 0
+
+--- Constraints checked ---
+MovieShape:
+  [PASS] sh:minCount 1 on m:title           — all 8 Movie individuals have exactly 1 title
+  [PASS] sh:minCount 1 on m:releaseYear     — all 8 Movie individuals have a valid year
+  [PASS] sh:minCount 1 on m:hasDirector     — all 8 Movie individuals link to a Director
+  [PASS] sh:minCount 1 on m:hasGenre        — all 8 Movie individuals link to a Genre
+  [PASS] sh:maxCount 1 on m:imdbRating      — no duplicate ratings
+  [PASS] sh:minInclusive 0.0, maxInclusive 10.0 on m:imdbRating — all ratings in valid range
+  [PASS] sh:minExclusive 0 on m:duration    — all durations positive
+
+PersonShape:
+  [PASS] sh:minCount 1 on m:fullName        — all Person individuals have a fullName
+  [PASS] sh:maxCount 1 on m:birthDate       — no duplicate birth dates
+
+TVSeriesShape:
+  [PASS] sh:minCount 1 on m:title           — BreakingBad and GameOfThrones have titles
+  [PASS] sh:minCount 1 on m:releaseYear     — valid years present
+  [PASS] sh:maxInclusive 10.0 on m:imdbRating — ratings in range
+
+EpisodeShape:
+  [PASS] sh:minCount 1 on m:episodeOf       — BB_S01E01 and BB_S05E16 linked to TVSeries
+  [PASS] sh:minCount 1 on m:episodeNumber   — episode numbers present
+  [PASS] sh:minCount 1 on m:seasonNumber    — season numbers present
+
+StreamingPlatformShape:
+  [PASS] sh:minCount 1 on rdfs:label        — Netflix, HBOMax, DisneyPlus all labelled
+
+--- Earlier violations addressed ---
+During development, the following violations were detected and corrected:
+1. Animation, Horror, Romance Genre individuals were missing from ABox.
+   FIX: Added 3 Genre individuals to movie-ontology.owl.
+2. hasActor/hasDirector domain was restricted to Movie (not AudiovisualWork).
+   FIX: Updated domain to m:AudiovisualWork in v2.1 (covers TVSeries too).
+
+Final validation: CONFORMS = TRUE

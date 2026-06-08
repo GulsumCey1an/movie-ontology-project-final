@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Movie Knowledge Graph Ontology v2.1 — Documentation</title>
+<style>
+  :root { --primary: #1a3a5c; --accent: #e8a020; --light: #f8f9fa; --border: #dee2e6; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Georgia', serif; color: #212529; line-height: 1.7; }
+  header { background: var(--primary); color: #fff; padding: 2rem 3rem; }
+  header h1 { font-size: 2rem; font-weight: bold; }
+  header p { color: #aac; font-size: 0.95rem; margin-top: 0.3rem; }
+  nav { background: #fff; border-bottom: 2px solid var(--accent); padding: 0.5rem 3rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  nav a { color: var(--primary); text-decoration: none; font-size: 0.9rem; padding: 0.3rem 0; font-weight: 600; }
+  nav a:hover { color: var(--accent); }
+  .container { max-width: 1100px; margin: 0 auto; padding: 2rem 3rem; }
+  section { margin-bottom: 3rem; }
+  h2 { color: var(--primary); border-bottom: 2px solid var(--accent); padding-bottom: 0.4rem; margin-bottom: 1rem; font-size: 1.5rem; }
+  h3 { color: #34495e; margin: 1.2rem 0 0.5rem; font-size: 1.1rem; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.88rem; }
+  th { background: var(--primary); color: #fff; padding: 0.6rem 0.8rem; text-align: left; }
+  td { padding: 0.5rem 0.8rem; border-bottom: 1px solid var(--border); }
+  tr:nth-child(even) { background: var(--light); }
+  code { background: #eef; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.85rem; font-family: monospace; }
+  .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: bold; }
+  .badge-class { background: #d4edda; color: #155724; }
+  .badge-obj { background: #cce5ff; color: #004085; }
+  .badge-data { background: #fff3cd; color: #856404; }
+  .badge-ind { background: #f8d7da; color: #721c24; }
+  .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; background: var(--light); padding: 1rem; border-radius: 6px; border: 1px solid var(--border); }
+  .meta-item label { font-size: 0.8rem; color: #666; display: block; }
+  .meta-item span { font-size: 0.95rem; }
+  footer { background: var(--primary); color: #aac; text-align: center; padding: 1.5rem; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🎬 Movie Knowledge Graph Ontology</h1>
+  <p>Version 2.1 · Knowledge Engineering and Ontologies · Spring 2026 · Generated documentation (WIDOCO-compatible)</p>
+</header>
+<nav>
+  <a href="#metadata">Metadata</a>
+  <a href="#overview">Overview</a>
+  <a href="#classes">Classes</a>
+  <a href="#objectprops">Object Properties</a>
+  <a href="#dataprops">Data Properties</a>
+  <a href="#individuals">Individuals</a>
+  <a href="#alignment">Alignments</a>
+  <a href="#namespaces">Namespaces</a>
+</nav>
+
+<div class="container">
+
+  <!-- METADATA -->
+  <section id="metadata">
+    <h2>Ontology Metadata</h2>
+    <div class="meta-grid">
+      <div class="meta-item"><label>IRI</label><span><code>http://www.semanticweb.org/movieontology</code></span></div>
+      <div class="meta-item"><label>Version IRI</label><span><code>http://www.semanticweb.org/movieontology/2.1</code></span></div>
+      <div class="meta-item"><label>Version</label><span>2.1 (Final)</span></div>
+      <div class="meta-item"><label>Prior Version</label><span>1.0</span></div>
+      <div class="meta-item"><label>Authors</label><span>Gülsüm Ceylan · Furkan Üstüncan</span></div>
+      <div class="meta-item"><label>Date</label><span>2026-05-11</span></div>
+      <div class="meta-item"><label>License</label><span>MIT License</span></div>
+      <div class="meta-item"><label>Methodology</label><span>METHONTOLOGY + MOMo</span></div>
+    </div>
+    <p style="margin-top:1rem;">An OWL 2 ontology for representing movies, TV series, episodes, persons (actors, directors, writers, producers, composers), genres, awards, production companies, countries, languages, franchises, and streaming platforms. Designed for an IMDb-like knowledge graph supporting SPARQL querying, Wikidata-based population, and LLM-driven enrichment.</p>
+  </section>
+
+  <!-- OVERVIEW STATS -->
+  <section id="overview">
+    <h2>Overview</h2>
+    <table>
+      <tr><th>Component</th><th>Count</th><th>Notes</th></tr>
+      <tr><td>Classes</td><td>25</td><td>+5 added in v2 (AudiovisualWork, TVSeries, Episode, StreamingPlatform, Character)</td></tr>
+      <tr><td>Object Properties</td><td>21</td><td>+6 added in v2; all with inverse pairs where applicable</td></tr>
+      <tr><td>Data Properties</td><td>14</td><td>+5 added in v2 (imdbId, tmdbId, wikidataId, plotSummary, episode/season numbers)</td></tr>
+      <tr><td>Named Individuals</td><td>51</td><td>Movies (8), TVSeries (2), Episodes (2), Persons (20+), Genres (11), etc.</td></tr>
+      <tr><td>Competency Questions</td><td>25</td><td>CQ1–CQ22 + 3 aggregation queries</td></tr>
+      <tr><td>External Alignments</td><td>5</td><td>MO, schema.org, DBpedia, Wikidata, FOAF</td></tr>
+      <tr><td>SHACL Shapes</td><td>5</td><td>Movie, Person, TVSeries, Episode, StreamingPlatform</td></tr>
+    </table>
+  </section>
+
+  <!-- CLASSES -->
+  <section id="classes">
+    <h2>Classes</h2>
+    <table>
+      <tr><th>Class</th><th>Parent</th><th>Description</th><th>Version</th></tr>
+      <tr><td><code>AudiovisualWork</code></td><td>owl:Thing</td><td>Abstract superclass for all audiovisual productions</td><td><span class="badge badge-class">v2</span></td></tr>
+      <tr><td><code>Movie</code></td><td>AudiovisualWork</td><td>A feature-length cinematic work</td><td><span class="badge badge-class">v1</span></td></tr>
+      <tr><td><code>TVSeries</code></td><td>AudiovisualWork</td><td>A television series; disjoint with Movie</td><td><span class="badge badge-class">v2</span></td></tr>
+      <tr><td><code>Episode</code></td><td>AudiovisualWork</td><td>A single episode of a TV series; disjoint with Movie</td><td><span class="badge badge-class">v2</span></td></tr>
+      <tr><td><code>StreamingPlatform</code></td><td>owl:Thing</td><td>An online video distribution service</td><td><span class="badge badge-class">v2</span></td></tr>
+      <tr><td><code>Character</code></td><td>owl:Thing</td><td>A fictional character portrayed in an audiovisual work</td><td><span class="badge badge-class">v2</span></td></tr>
+      <tr><td><code>Person</code></td><td>owl:Thing</td><td>A real-world individual involved in film production</td><td><span class="badge badge-class">v1</span></td></tr>
+      <tr><td><code>Actor</code></td><td>Person</td><td>A performer in a production; disjoint with Director</td><td><span class="badge badge-class">v1</span></td></tr>
+      <tr><td><code>Director</code></td><td>Person</td><td>Creative lead of a production</td><td><span class="badge badge-class">v1</span></td></tr>
+      <tr><td><code>Writer</code></td><td>Person</td><td>Screenwriter or author of source material</td><td><span class="badge badge-class">v1</span></td></tr>
+      <tr><td><code>Producer</code></td><td>Person</td><td>Production financier/manager</td><td><span class="badge badge-class">v1</span></td></tr>
+      <tr><td><code>Composer</code></td><td>Person</td><td>Composer of the original score</td><td><span class="badge badge-class">v1</span></td></tr>
+      <tr><td><code>Genre</code></td><td>owl:Thing</td><td>Categorical classification of audiovisual works</td><td><span class="badge badge-class">v1</span></td></tr>
+      <tr><td><code>Award</code></td><td>owl:Thing</td><td>A film industry recognition</td><td><span class="badge badge-class">v1</span></td></tr>
+      <tr><td><code>AcademyAward</code></td><td>Award</td><td>An Oscar Academy Award</td><td><span class="badge badge-class">v1</span></td></tr>
+      <tr><td><code>ProductionCompany</code></td><td>owl:Thing</td><td>A film studio or production house</td><td><span class="badge badge-class">v1</span></td></tr>
+      <tr><td><code>Country</code></td><td>owl:Thing</td><td>A nation state (filming location / birth country)</td><td><span class="badge badge-class">v1</span></td></tr>
+      <tr><td><code>Language</code></td><td>owl:Thing</td><td>A natural language used in a production</td><td><span class="badge badge-class">v1</span></td></tr>
+      <tr><td><code>Franchise</code></td><td>owl:Thing</td><td>A branded series of related films</td><td><span class="badge badge-class">v1</span></td></tr>
+    </table>
+  </section>
+
+  <!-- OBJECT PROPERTIES -->
+  <section id="objectprops">
+    <h2>Object Properties</h2>
+    <table>
+      <tr><th>Property</th><th>Domain</th><th>Range</th><th>Characteristics</th></tr>
+      <tr><td><code>hasActor</code> / <code>actsIn</code></td><td>AudiovisualWork</td><td>Actor</td><td>inverse pair</td></tr>
+      <tr><td><code>hasDirector</code> / <code>directs</code></td><td>AudiovisualWork</td><td>Director</td><td>inverse pair</td></tr>
+      <tr><td><code>hasWriter</code></td><td>AudiovisualWork</td><td>Writer</td><td>—</td></tr>
+      <tr><td><code>hasProducer</code></td><td>AudiovisualWork</td><td>Producer</td><td>—</td></tr>
+      <tr><td><code>hasComposer</code></td><td>AudiovisualWork</td><td>Composer</td><td>—</td></tr>
+      <tr><td><code>hasGenre</code></td><td>AudiovisualWork</td><td>Genre</td><td>—</td></tr>
+      <tr><td><code>hasWonAward</code></td><td>—</td><td>Award</td><td>—</td></tr>
+      <tr><td><code>producedBy</code></td><td>Movie</td><td>ProductionCompany</td><td>—</td></tr>
+      <tr><td><code>filmedIn</code></td><td>Movie</td><td>Country</td><td>—</td></tr>
+      <tr><td><code>inLanguage</code></td><td>Movie</td><td>Language</td><td>—</td></tr>
+      <tr><td><code>partOfFranchise</code></td><td>Movie</td><td>Franchise</td><td>—</td></tr>
+      <tr><td><code>bornIn</code></td><td>Person</td><td>Country</td><td>—</td></tr>
+      <tr><td><code>collaboratesWith</code></td><td>Person</td><td>Person</td><td>symmetric</td></tr>
+      <tr><td><code>hasEpisode</code> / <code>episodeOf</code></td><td>TVSeries / Episode</td><td>Episode / TVSeries</td><td>inverse pair — <span class="badge badge-obj">v2</span></td></tr>
+      <tr><td><code>availableOn</code></td><td>AudiovisualWork</td><td>StreamingPlatform</td><td><span class="badge badge-obj">v2</span></td></tr>
+      <tr><td><code>basedOn</code></td><td>Movie</td><td>—</td><td><span class="badge badge-obj">v2</span></td></tr>
+      <tr><td><code>sequelOf</code> / <code>prequelOf</code></td><td>Movie</td><td>Movie</td><td>inverse pair — <span class="badge badge-obj">v2</span></td></tr>
+      <tr><td><code>playsCharacter</code></td><td>Actor</td><td>Character</td><td><span class="badge badge-obj">v2</span></td></tr>
+    </table>
+  </section>
+
+  <!-- DATA PROPERTIES -->
+  <section id="dataprops">
+    <h2>Data Properties</h2>
+    <table>
+      <tr><th>Property</th><th>Range</th><th>Constraint</th><th>Version</th></tr>
+      <tr><td><code>title</code></td><td>xsd:string</td><td>minCount 1, maxCount 1</td><td>v1</td></tr>
+      <tr><td><code>releaseYear</code></td><td>xsd:integer</td><td>[1888 – 2050]</td><td>v1</td></tr>
+      <tr><td><code>duration</code></td><td>xsd:integer</td><td>&gt; 0 (minutes)</td><td>v1</td></tr>
+      <tr><td><code>imdbRating</code></td><td>xsd:float</td><td>[0.0 – 10.0]</td><td>v1</td></tr>
+      <tr><td><code>budget</code></td><td>xsd:integer</td><td>USD</td><td>v1</td></tr>
+      <tr><td><code>boxOffice</code></td><td>xsd:integer</td><td>USD</td><td>v1</td></tr>
+      <tr><td><code>fullName</code></td><td>xsd:string</td><td>minCount 1 (Person)</td><td>v1</td></tr>
+      <tr><td><code>birthDate</code></td><td>xsd:date</td><td>maxCount 1</td><td>v1</td></tr>
+      <tr><td><code>nationality</code></td><td>xsd:string</td><td>—</td><td>v1</td></tr>
+      <tr><td><code>plotSummary</code></td><td>xsd:string</td><td>max 300 chars (recommended)</td><td><span class="badge badge-data">v2</span></td></tr>
+      <tr><td><code>imdbId</code></td><td>xsd:string</td><td>pattern tt[0-9]+</td><td><span class="badge badge-data">v2</span></td></tr>
+      <tr><td><code>tmdbId</code></td><td>xsd:string</td><td>—</td><td><span class="badge badge-data">v2</span></td></tr>
+      <tr><td><code>wikidataId</code></td><td>xsd:string</td><td>pattern Q[0-9]+</td><td><span class="badge badge-data">v2</span></td></tr>
+      <tr><td><code>seasonNumber</code></td><td>xsd:integer</td><td>&gt; 0</td><td><span class="badge badge-data">v2</span></td></tr>
+      <tr><td><code>episodeNumber</code></td><td>xsd:integer</td><td>&gt; 0</td><td><span class="badge badge-data">v2</span></td></tr>
+    </table>
+  </section>
+
+  <!-- INDIVIDUALS -->
+  <section id="individuals">
+    <h2>Named Individuals (selection)</h2>
+    <h3>Movies (8 hand-curated + 3 LLM-populated)</h3>
+    <table>
+      <tr><th>IRI</th><th>Title</th><th>Year</th><th>Rating</th><th>Source</th></tr>
+      <tr><td><code>:Inception</code></td><td>Inception</td><td>2010</td><td>8.8</td><td>Manual (v1)</td></tr>
+      <tr><td><code>:TheDarkKnight</code></td><td>The Dark Knight</td><td>2008</td><td>9.0</td><td>Manual (v1)</td></tr>
+      <tr><td><code>:PulpFiction</code></td><td>Pulp Fiction</td><td>1994</td><td>8.9</td><td>Manual (v1)</td></tr>
+      <tr><td><code>:SchindlersList</code></td><td>Schindler's List</td><td>1993</td><td>9.0</td><td>Manual (v1)</td></tr>
+      <tr><td><code>:FellowshipOfTheRing</code></td><td>The Fellowship of the Ring</td><td>2001</td><td>8.8</td><td>Manual (v2)</td></tr>
+      <tr><td><code>:ReturnOfTheKing</code></td><td>The Return of the King</td><td>2003</td><td>9.0</td><td>Manual (v2)</td></tr>
+      <tr><td><code>:GoodFellas</code></td><td>GoodFellas</td><td>1990</td><td>8.7</td><td><strong>LLM (Shimizu 2024)</strong></td></tr>
+      <tr><td><code>:TheMatrix</code></td><td>The Matrix</td><td>1999</td><td>8.7</td><td><strong>LLM (Shimizu 2024)</strong></td></tr>
+      <tr><td><code>:ToyStory</code></td><td>Toy Story</td><td>1995</td><td>8.3</td><td><strong>LLM (Shimizu 2024)</strong></td></tr>
+    </table>
+    <h3>TV Series (2)</h3>
+    <table>
+      <tr><th>IRI</th><th>Title</th><th>Year</th><th>Rating</th></tr>
+      <tr><td><code>:BreakingBad</code></td><td>Breaking Bad</td><td>2008</td><td>9.5</td></tr>
+      <tr><td><code>:GameOfThrones</code></td><td>Game of Thrones</td><td>2011</td><td>9.2</td></tr>
+    </table>
+    <h3>Streaming Platforms (3)</h3>
+    <table>
+      <tr><th>IRI</th><th>Label</th></tr>
+      <tr><td><code>:Netflix</code></td><td>Netflix</td></tr>
+      <tr><td><code>:HBOMax</code></td><td>HBO Max</td></tr>
+      <tr><td><code>:DisneyPlus</code></td><td>Disney+</td></tr>
+    </table>
+  </section>
+
+  <!-- ALIGNMENTS -->
+  <section id="alignment">
+    <h2>External Ontology Alignments</h2>
+    <table>
+      <tr><th>Source Ontology</th><th>URI</th><th>Alignment mechanism</th></tr>
+      <tr><td>Movie Ontology (Bouza 2009)</td><td><code>http://www.movieontology.org/2009/11/09/movieontology.owl</code></td><td>rdfs:seeAlso on ontology + classes</td></tr>
+      <tr><td>schema.org</td><td><code>https://schema.org/Movie</code></td><td>rdfs:seeAlso per property</td></tr>
+      <tr><td>DBpedia Ontology</td><td><code>https://dbpedia.org/ontology/Film</code></td><td>rdfs:seeAlso on Movie class + properties</td></tr>
+      <tr><td>Wikidata</td><td><code>https://www.wikidata.org/entity/Q11424</code></td><td>rdfs:seeAlso + wikidataId datatype property</td></tr>
+      <tr><td>FOAF</td><td><code>http://xmlns.com/foaf/0.1/Person</code></td><td>rdfs:seeAlso on Person class</td></tr>
+    </table>
+  </section>
+
+  <!-- NAMESPACES -->
+  <section id="namespaces">
+    <h2>Namespace Declarations</h2>
+    <table>
+      <tr><th>Prefix</th><th>URI</th></tr>
+      <tr><td><code>movie:</code> (default)</td><td><code>http://www.semanticweb.org/movieontology#</code></td></tr>
+      <tr><td><code>owl:</code></td><td><code>http://www.w3.org/2002/07/owl#</code></td></tr>
+      <tr><td><code>rdf:</code></td><td><code>http://www.w3.org/1999/02/22-rdf-syntax-ns#</code></td></tr>
+      <tr><td><code>rdfs:</code></td><td><code>http://www.w3.org/2000/01/rdf-schema#</code></td></tr>
+      <tr><td><code>xsd:</code></td><td><code>http://www.w3.org/2001/XMLSchema#</code></td></tr>
+      <tr><td><code>dc:</code></td><td><code>http://purl.org/dc/elements/1.1/</code></td></tr>
+      <tr><td><code>dcterms:</code></td><td><code>http://purl.org/dc/terms/</code></td></tr>
+      <tr><td><code>schema:</code></td><td><code>http://schema.org/</code></td></tr>
+      <tr><td><code>dbo:</code></td><td><code>http://dbpedia.org/ontology/</code></td></tr>
+      <tr><td><code>wd:</code></td><td><code>http://www.wikidata.org/entity/</code></td></tr>
+      <tr><td><code>foaf:</code></td><td><code>http://xmlns.com/foaf/0.1/</code></td></tr>
+      <tr><td><code>mo:</code></td><td><code>http://www.movieontology.org/2009/11/09/movieontology.owl#</code></td></tr>
+      <tr><td><code>sh:</code></td><td><code>http://www.w3.org/ns/shacl#</code></td></tr>
+    </table>
+  </section>
+
+</div>
+<footer>
+  Movie Knowledge Graph Ontology v2.1 · Gülsüm Ceylan &amp; Furkan Üstüncan · Knowledge Engineering and Ontologies, Spring 2026 · MIT License
+</footer>
+</body>
+</html>

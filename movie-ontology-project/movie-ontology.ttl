@@ -1,0 +1,865 @@
+@prefix : <http://www.semanticweb.org/movieontology#> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema1: <http://schema.org/> .
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://www.semanticweb.org/movieontology> a owl:Ontology ;
+    rdfs:label "Movie Knowledge Graph Ontology (v2)"@en ;
+    dc:creator "Furkan Ustuncan",
+        "Gulsum Ceylan" ;
+    dc:date "2026-05-11"^^xsd:date ;
+    dcterms:license <https://opensource.org/licenses/MIT> ;
+    rdfs:comment "An OWL 2 ontology for representing movies, persons (actors, directors, writers, producers, composers), genres, awards, production companies, countries, languages, franchises, TV series, episodes and streaming platforms. Designed for an IMDb-like knowledge graph with SPARQL querying, ontology population from Wikidata/TMDb, and LLM-driven QA. Version 2 extends the base schema with TV/streaming concepts, alignment to schema.org / DBpedia / Wikidata / Bouza MO, and SHACL-ready cardinality patterns."@en ;
+    rdfs:seeAlso dbo:Film,
+        schema1:Movie,
+        <http://www.movieontology.org/2009/11/09/movieontology.owl>,
+        wd:Q11424 ;
+    owl:priorVersion <http://www.semanticweb.org/movieontology/1.0> ;
+    owl:versionIRI <http://www.semanticweb.org/movieontology/2.0> ;
+    owl:versionInfo "2.0" .
+
+:AnimatedMovie a owl:Class ;
+    rdfs:label "Animated Movie"@en ;
+    rdfs:subClassOf :Movie .
+
+:BAFTA a owl:Class ;
+    rdfs:label "BAFTA Award"@en ;
+    rdfs:subClassOf :Award .
+
+:DisneyPlus a :StreamingPlatform,
+        owl:NamedIndividual ;
+    rdfs:label "Disney+" .
+
+:Documentary a owl:Class ;
+    rdfs:label "Documentary"@en ;
+    rdfs:subClassOf :Movie .
+
+:DomCobb a :Character,
+        owl:NamedIndividual ;
+    rdfs:label "Dom Cobb"@en ;
+    :fullName "Dom Cobb"^^xsd:string .
+
+:FrodoBaggins a :Character,
+        owl:NamedIndividual ;
+    rdfs:label "Frodo Baggins"@en ;
+    :fullName "Frodo Baggins"^^xsd:string .
+
+:GameOfThrones a :TVSeries,
+        owl:NamedIndividual ;
+    rdfs:label "Game of Thrones"@en ;
+    :availableOn :HBOMax ;
+    :hasGenre :Drama,
+        :Fantasy ;
+    :imdbId "tt0944947"^^xsd:string ;
+    :imdbRating "9.2"^^xsd:float ;
+    :releaseYear 2011 ;
+    :title "Game of Thrones"^^xsd:string ;
+    :wikidataId "Q23572"^^xsd:string ;
+    rdfs:seeAlso <https://www.wikidata.org/entity/Q23572> .
+
+:GoldenGlobe a owl:Class ;
+    rdfs:label "Golden Globe"@en ;
+    rdfs:subClassOf :Award .
+
+:GoodFellas a :Movie,
+        owl:NamedIndividual ;
+    :duration 146 ;
+    :hasActor :JoePesci,
+        :RayLiotta,
+        :RobertDeNiro ;
+    :hasDirector :MartinScorsese ;
+    :hasGenre :Crime,
+        :Drama ;
+    :imdbId "tt0099685"^^xsd:string ;
+    :imdbRating "8.7"^^xsd:float ;
+    :plotSummary "Henry Hill rises through the ranks of the Lucchese crime family in New York, enjoying wealth and power until paranoia and betrayal lead to his downfall."^^xsd:string ;
+    :releaseYear 1990 ;
+    :title "GoodFellas"^^xsd:string ;
+    :wikidataId "Q190050"^^xsd:string .
+
+:Horror a :Genre,
+        owl:NamedIndividual ;
+    rdfs:label "Horror"@en .
+
+:Inception a :FeatureFilm,
+        owl:NamedIndividual ;
+    rdfs:label "Inception" ;
+    :availableOn :Netflix ;
+    :boxOffice "829895144"^^xsd:long ;
+    :budget "160000000"^^xsd:long ;
+    :duration 148 ;
+    :filmedIn :USA ;
+    :hasActor :LeonardoDiCaprio ;
+    :hasComposer :HansZimmer ;
+    :hasDirector :ChristopherNolan ;
+    :hasGenre :Action,
+        :ScienceFiction ;
+    :hasWriter :ChristopherNolan ;
+    :imdbId "tt1375666" ;
+    :imdbRating "8.8"^^xsd:float ;
+    :inLanguage :English ;
+    :plotSummary "A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea into the mind of a CEO." ;
+    :producedBy :WarnerBros ;
+    :releaseYear 2010 ;
+    :title "Inception" ;
+    :wikidataId "Q25188" .
+
+:OscarBestPicture2009 a :AcademyAward,
+        owl:NamedIndividual ;
+    rdfs:label "Academy Award for Best Picture 2009" ;
+    :awardYear 2009 .
+
+:PulpFiction a :FeatureFilm,
+        owl:NamedIndividual ;
+    rdfs:label "Pulp Fiction" ;
+    :boxOffice "213928762"^^xsd:long ;
+    :budget "8000000"^^xsd:long ;
+    :duration 154 ;
+    :hasActor :JohnTravolta,
+        :SamuelLJackson ;
+    :hasDirector :QuentinTarantino ;
+    :hasGenre :Crime,
+        :Drama ;
+    :hasWriter :QuentinTarantino ;
+    :imdbId "tt0110912" ;
+    :imdbRating "8.9"^^xsd:float ;
+    :inLanguage :English ;
+    :plotSummary "The lives of two mob hitmen, a boxer, a gangster and his wife intertwine in four tales of violence and redemption." ;
+    :producedBy :Miramax ;
+    :releaseYear 1994 ;
+    :title "Pulp Fiction" ;
+    :wikidataId "Q104123" .
+
+:ReturnOfTheKing a :FeatureFilm,
+        owl:NamedIndividual ;
+    rdfs:label "The Lord of the Rings: The Return of the King" ;
+    :boxOffice "1146457434"^^xsd:long ;
+    :budget "94000000"^^xsd:long ;
+    :duration 201 ;
+    :filmedIn :NewZealand ;
+    :hasActor :ElijahWood ;
+    :hasComposer :HowardShore ;
+    :hasDirector :PeterJackson ;
+    :hasGenre :Adventure,
+        :Fantasy ;
+    :hasWonAward :OscarBestPicture2004 ;
+    :hasWriter :PeterJackson ;
+    :imdbId "tt0167260" ;
+    :imdbRating "9.0"^^xsd:float ;
+    :inLanguage :English ;
+    :partOfFranchise :LordOfTheRingsTrilogy ;
+    :plotSummary "Gandalf and Aragorn lead the World of Men against Sauron's army while Frodo and Sam approach Mount Doom with the One Ring." ;
+    :producedBy :NewLineCinema ;
+    :releaseYear 2003 ;
+    :sequelOf :FellowshipOfTheRing ;
+    :title "The Lord of the Rings: The Return of the King" ;
+    :wikidataId "Q131074" .
+
+:Romance a :Genre,
+        owl:NamedIndividual ;
+    rdfs:label "Romance"@en .
+
+:SchindlersList a :FeatureFilm,
+        owl:NamedIndividual ;
+    rdfs:label "Schindler's List" ;
+    :boxOffice "322161245"^^xsd:long ;
+    :budget "22000000"^^xsd:long ;
+    :duration 195 ;
+    :hasActor :LiamNeeson ;
+    :hasDirector :StevenSpielberg ;
+    :hasGenre :Biography,
+        :Drama ;
+    :imdbId "tt0108052" ;
+    :imdbRating "9.0"^^xsd:float ;
+    :inLanguage :English ;
+    :plotSummary "In German-occupied Poland, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution." ;
+    :releaseYear 1993 ;
+    :title "Schindler's List" ;
+    :wikidataId "Q150827" .
+
+:ShortFilm a owl:Class ;
+    rdfs:label "Short Film"@en ;
+    rdfs:subClassOf :Movie .
+
+:TheDarkKnight a :FeatureFilm,
+        owl:NamedIndividual ;
+    rdfs:label "The Dark Knight" ;
+    :availableOn :HBOMax ;
+    :boxOffice "1004558444"^^xsd:long ;
+    :budget "185000000"^^xsd:long ;
+    :duration 152 ;
+    :hasActor :ChristianBale ;
+    :hasComposer :HansZimmer ;
+    :hasDirector :ChristopherNolan ;
+    :hasGenre :Action,
+        :Crime,
+        :Drama ;
+    :hasWriter :ChristopherNolan ;
+    :imdbId "tt0468569" ;
+    :imdbRating "9.0"^^xsd:float ;
+    :inLanguage :English ;
+    :partOfFranchise :TheDarkKnightTrilogy ;
+    :plotSummary "Batman, with the help of Lt. Jim Gordon and DA Harvey Dent, sets out to dismantle the remaining criminal organizations that plague Gotham." ;
+    :producedBy :WarnerBros ;
+    :releaseYear 2008 ;
+    :title "The Dark Knight" ;
+    :wikidataId "Q83495" .
+
+:TheMatrix a :Movie,
+        owl:NamedIndividual ;
+    :duration 136 ;
+    :hasActor :CarrieAnneMoss,
+        :KeanuReeves,
+        :LaurenceFishburne ;
+    :hasDirector :LanaWachowski,
+        :LillyWachowski ;
+    :hasGenre :Action,
+        :ScienceFiction ;
+    :imdbId "tt0133093"^^xsd:string ;
+    :imdbRating "8.7"^^xsd:float ;
+    :plotSummary "A computer hacker discovers reality is a simulation created by machines. Guided by rebels, he fights to free humanity from the artificial world imprisoning them."^^xsd:string ;
+    :releaseYear 1999 ;
+    :title "The Matrix"^^xsd:string ;
+    :wikidataId "Q172241"^^xsd:string .
+
+:Thriller a :Genre,
+        owl:NamedIndividual ;
+    rdfs:label "Thriller" .
+
+:ToyStory a :Movie,
+        owl:NamedIndividual ;
+    :duration 81 ;
+    :hasActor :TimAllen,
+        :TomHanks ;
+    :hasDirector :JohnLasseter ;
+    :hasGenre :Adventure,
+        :Animation ;
+    :imdbId "tt0114709"^^xsd:string ;
+    :imdbRating "8.3"^^xsd:float ;
+    :plotSummary "When a new space ranger toy threatens Woody's status as Andy's favourite, the two toys must work together to find their way home after getting lost."^^xsd:string ;
+    :releaseYear 1995 ;
+    :title "Toy Story"^^xsd:string ;
+    :wikidataId "Q189869"^^xsd:string .
+
+:availableOn a owl:ObjectProperty ;
+    rdfs:label "available on"@en ;
+    rdfs:comment "Relates a movie or TV series to a streaming platform that distributes it."@en ;
+    rdfs:domain :AudiovisualWork ;
+    rdfs:range :StreamingPlatform .
+
+:awardYear a owl:DatatypeProperty ;
+    rdfs:label "award year"@en ;
+    rdfs:domain :Award ;
+    rdfs:range xsd:integer .
+
+:basedOn a owl:ObjectProperty ;
+    rdfs:label "based on"@en ;
+    rdfs:comment "Relates a movie to a source work (book, comic, true story) it is adapted from."@en ;
+    rdfs:domain :Movie ;
+    rdfs:seeAlso schema1:isBasedOn .
+
+:birthDate a owl:DatatypeProperty ;
+    rdfs:label "birth date"@en ;
+    rdfs:domain :Person ;
+    rdfs:range xsd:date .
+
+:bornIn a owl:ObjectProperty ;
+    rdfs:label "born in"@en ;
+    rdfs:domain :Person ;
+    rdfs:range :Country ;
+    rdfs:seeAlso schema1:birthPlace .
+
+:boxOffice a owl:DatatypeProperty ;
+    rdfs:label "box office in USD"@en ;
+    rdfs:domain :Movie ;
+    rdfs:range xsd:long .
+
+:budget a owl:DatatypeProperty ;
+    rdfs:label "budget in USD"@en ;
+    rdfs:domain :Movie ;
+    rdfs:range xsd:long .
+
+:collaboratesWith a owl:ObjectProperty,
+        owl:SymmetricProperty ;
+    rdfs:label "collaborates with"@en ;
+    rdfs:comment "Symmetric: if A collaboratesWith B then B collaboratesWith A."@en ;
+    rdfs:domain :Person ;
+    rdfs:range :Person .
+
+:duration a owl:DatatypeProperty ;
+    rdfs:label "duration in minutes"@en ;
+    rdfs:domain :Movie ;
+    rdfs:range xsd:integer ;
+    rdfs:seeAlso schema1:duration .
+
+:episodeNumber a owl:DatatypeProperty ;
+    rdfs:label "episode number"@en ;
+    rdfs:domain :Episode ;
+    rdfs:range xsd:integer .
+
+:filmedIn a owl:ObjectProperty ;
+    rdfs:label "filmed in"@en ;
+    rdfs:domain :Movie ;
+    rdfs:range :Country ;
+    rdfs:seeAlso schema1:countryOfOrigin .
+
+:fullName a owl:DatatypeProperty ;
+    rdfs:label "full name"@en ;
+    rdfs:domain :Person ;
+    rdfs:range xsd:string .
+
+:hasActor a owl:ObjectProperty ;
+    rdfs:label "has actor"@en ;
+    rdfs:comment "Relates an audiovisual work to a person who acts in it. Inverse of actsIn."@en ;
+    rdfs:domain :AudiovisualWork ;
+    rdfs:range :Actor ;
+    rdfs:seeAlso dbo:starring,
+        schema1:actor ;
+    owl:inverseOf :actsIn .
+
+:hasComposer a owl:ObjectProperty ;
+    rdfs:label "has composer"@en ;
+    rdfs:domain :AudiovisualWork ;
+    rdfs:range :Composer ;
+    rdfs:seeAlso schema1:musicBy .
+
+:hasDirector a owl:ObjectProperty ;
+    rdfs:label "has director"@en ;
+    rdfs:domain :AudiovisualWork ;
+    rdfs:range :Director ;
+    rdfs:seeAlso dbo:director,
+        schema1:director ;
+    owl:inverseOf :directs .
+
+:hasEpisode a owl:ObjectProperty ;
+    rdfs:label "has episode"@en ;
+    rdfs:comment "Relates a TV series to one of its episodes."@en ;
+    rdfs:domain :TVSeries ;
+    rdfs:range :Episode ;
+    rdfs:seeAlso schema1:episode ;
+    owl:inverseOf :episodeOf .
+
+:hasGenre a owl:ObjectProperty ;
+    rdfs:label "has genre"@en ;
+    rdfs:domain :AudiovisualWork ;
+    rdfs:range :Genre ;
+    rdfs:seeAlso dbo:genre,
+        schema1:genre .
+
+:hasProducer a owl:ObjectProperty ;
+    rdfs:label "has producer"@en ;
+    rdfs:domain :AudiovisualWork ;
+    rdfs:range :Producer ;
+    rdfs:seeAlso schema1:producer .
+
+:hasWonAward a owl:ObjectProperty ;
+    rdfs:label "has won award"@en ;
+    rdfs:comment "Relates a movie or person to an award they have won."@en ;
+    rdfs:range :Award ;
+    rdfs:seeAlso schema1:award .
+
+:hasWriter a owl:ObjectProperty ;
+    rdfs:label "has writer"@en ;
+    rdfs:domain :AudiovisualWork ;
+    rdfs:range :Writer ;
+    rdfs:seeAlso schema1:author .
+
+:imdbId a owl:DatatypeProperty ;
+    rdfs:label "IMDb identifier"@en ;
+    rdfs:comment "External identifier on IMDb (e.g. tt1375666)."@en ;
+    rdfs:range xsd:string .
+
+:imdbRating a owl:DatatypeProperty ;
+    rdfs:label "IMDb rating"@en ;
+    rdfs:domain :Movie ;
+    rdfs:range xsd:float .
+
+:inLanguage a owl:ObjectProperty ;
+    rdfs:label "in language"@en ;
+    rdfs:domain :Movie ;
+    rdfs:range :Language ;
+    rdfs:seeAlso schema1:inLanguage .
+
+:partOfFranchise a owl:ObjectProperty ;
+    rdfs:label "part of franchise"@en ;
+    rdfs:domain :Movie ;
+    rdfs:range :Franchise ;
+    rdfs:seeAlso schema1:partOfSeries .
+
+:playsCharacter a owl:ObjectProperty ;
+    rdfs:label "plays character"@en ;
+    rdfs:comment "Relates an actor (in the context of a specific movie) to a fictional character they portray."@en ;
+    rdfs:domain :Actor ;
+    rdfs:range :Character .
+
+:plotSummary a owl:DatatypeProperty ;
+    rdfs:label "plot summary"@en ;
+    rdfs:comment "A short textual description of the plot. Useful for LLM-driven QA and ontology population."@en ;
+    rdfs:domain :Movie ;
+    rdfs:range xsd:string ;
+    rdfs:seeAlso schema1:description .
+
+:producedBy a owl:ObjectProperty ;
+    rdfs:label "produced by"@en ;
+    rdfs:domain :Movie ;
+    rdfs:range :ProductionCompany ;
+    rdfs:seeAlso schema1:productionCompany .
+
+:releaseYear a owl:DatatypeProperty ;
+    rdfs:label "release year"@en ;
+    rdfs:domain :Movie ;
+    rdfs:range xsd:integer ;
+    rdfs:seeAlso schema1:datePublished .
+
+:seasonNumber a owl:DatatypeProperty ;
+    rdfs:label "season number"@en ;
+    rdfs:domain :Episode ;
+    rdfs:range xsd:integer .
+
+:sequelOf a owl:ObjectProperty ;
+    rdfs:label "sequel of"@en ;
+    rdfs:comment "Relates a movie to its prequel; inverse of prequelOf."@en ;
+    rdfs:domain :Movie ;
+    rdfs:range :Movie ;
+    owl:inverseOf :prequelOf .
+
+:title a owl:DatatypeProperty ;
+    rdfs:label "title"@en ;
+    rdfs:domain :Movie ;
+    rdfs:range xsd:string ;
+    rdfs:seeAlso schema1:name .
+
+:tmdbId a owl:DatatypeProperty ;
+    rdfs:label "TMDb identifier"@en ;
+    rdfs:comment "External identifier on The Movie Database (TMDb)."@en ;
+    rdfs:range xsd:string .
+
+:wikidataId a owl:DatatypeProperty ;
+    rdfs:label "Wikidata identifier"@en ;
+    rdfs:comment "Wikidata QID (e.g. Q25188 for Inception)."@en ;
+    rdfs:range xsd:string .
+
+:Animation a :Genre,
+        owl:NamedIndividual ;
+    rdfs:label "Animation"@en .
+
+:BB_S01E01 a :Episode,
+        owl:NamedIndividual ;
+    rdfs:label "Breaking Bad S01E01 - Pilot"@en ;
+    :episodeNumber 1 ;
+    :episodeOf :BreakingBad ;
+    :seasonNumber 1 ;
+    :title "Pilot"^^xsd:string .
+
+:BB_S05E16 a :Episode,
+        owl:NamedIndividual ;
+    rdfs:label "Breaking Bad S05E16 - Felina"@en ;
+    :episodeNumber 16 ;
+    :episodeOf :BreakingBad ;
+    :seasonNumber 5 ;
+    :title "Felina"^^xsd:string .
+
+:Biography a :Genre,
+        owl:NamedIndividual ;
+    rdfs:label "Biography" .
+
+:BryanCranston a :Actor,
+        owl:NamedIndividual ;
+    rdfs:label "Bryan Cranston"@en ;
+    :actsIn :BreakingBad ;
+    :birthDate "1956-03-07"^^xsd:date ;
+    :fullName "Bryan Cranston"^^xsd:string ;
+    :playsCharacter :WalterWhite ;
+    :wikidataId "Q296117"^^xsd:string .
+
+:CarrieAnneMoss a :Actor,
+        owl:NamedIndividual ;
+    :fullName "Carrie-Anne Moss"^^xsd:string .
+
+:ChristianBale a :Actor,
+        owl:NamedIndividual ;
+    rdfs:label "Christian Bale" ;
+    :birthDate "1974-01-30"^^xsd:date ;
+    :bornIn :UK ;
+    :collaboratesWith :ChristopherNolan ;
+    :fullName "Christian Charles Philip Bale" ;
+    :wikidataId "Q47878" .
+
+:FellowshipOfTheRing a :FeatureFilm,
+        owl:NamedIndividual ;
+    rdfs:label "The Lord of the Rings: The Fellowship of the Ring" ;
+    :availableOn :HBOMax ;
+    :boxOffice "871530324"^^xsd:long ;
+    :budget "93000000"^^xsd:long ;
+    :duration 178 ;
+    :filmedIn :NewZealand ;
+    :hasActor :ElijahWood ;
+    :hasComposer :HowardShore ;
+    :hasDirector :PeterJackson ;
+    :hasGenre :Adventure,
+        :Fantasy ;
+    :hasWriter :PeterJackson ;
+    :imdbId "tt0120737" ;
+    :imdbRating "8.9"^^xsd:float ;
+    :inLanguage :English ;
+    :partOfFranchise :LordOfTheRingsTrilogy ;
+    :plotSummary "A meek Hobbit and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth from the Dark Lord Sauron." ;
+    :producedBy :NewLineCinema ;
+    :releaseYear 2001 ;
+    :title "The Lord of the Rings: The Fellowship of the Ring" ;
+    :wikidataId "Q127367" .
+
+:JoePesci a :Actor,
+        owl:NamedIndividual ;
+    :fullName "Joe Pesci"^^xsd:string .
+
+:JohnLasseter a :Director,
+        owl:NamedIndividual ;
+    :fullName "John Lasseter"^^xsd:string .
+
+:JohnTravolta a :Actor,
+        owl:NamedIndividual ;
+    rdfs:label "John Travolta" ;
+    :birthDate "1954-02-18"^^xsd:date ;
+    :bornIn :USA ;
+    :collaboratesWith :SamuelLJackson ;
+    :fullName "John Joseph Travolta" ;
+    :wikidataId "Q80938" .
+
+:KeanuReeves a :Actor,
+        owl:NamedIndividual ;
+    :fullName "Keanu Reeves"^^xsd:string .
+
+:LanaWachowski a :Director,
+        owl:NamedIndividual ;
+    :fullName "Lana Wachowski"^^xsd:string .
+
+:LaurenceFishburne a :Actor,
+        owl:NamedIndividual ;
+    :fullName "Laurence Fishburne"^^xsd:string .
+
+:LeonardoDiCaprio a :Actor,
+        owl:NamedIndividual ;
+    rdfs:label "Leonardo DiCaprio" ;
+    :birthDate "1974-11-11"^^xsd:date ;
+    :bornIn :USA ;
+    :collaboratesWith :ChristopherNolan ;
+    :fullName "Leonardo Wilhelm DiCaprio" ;
+    :wikidataId "Q38111" .
+
+:LiamNeeson a :Actor,
+        owl:NamedIndividual ;
+    rdfs:label "Liam Neeson" ;
+    :birthDate "1952-06-07"^^xsd:date ;
+    :fullName "William John Neeson" ;
+    :wikidataId "Q83287" .
+
+:LillyWachowski a :Director,
+        owl:NamedIndividual ;
+    :fullName "Lilly Wachowski"^^xsd:string .
+
+:MartinScorsese a :Director,
+        owl:NamedIndividual ;
+    :fullName "Martin Scorsese"^^xsd:string .
+
+:Miramax a :ProductionCompany,
+        owl:NamedIndividual ;
+    rdfs:label "Miramax Films" .
+
+:OscarBestDirector1994 a :AcademyAward,
+        owl:NamedIndividual ;
+    rdfs:label "Academy Award for Best Director 1994 (Schindler's List)" ;
+    :awardYear 1994 .
+
+:RayLiotta a :Actor,
+        owl:NamedIndividual ;
+    :fullName "Ray Liotta"^^xsd:string .
+
+:RobertDeNiro a :Actor,
+        owl:NamedIndividual ;
+    :fullName "Robert De Niro"^^xsd:string .
+
+:StevenSpielberg a :Director,
+        :Producer,
+        owl:NamedIndividual ;
+    rdfs:label "Steven Spielberg" ;
+    :birthDate "1946-12-18"^^xsd:date ;
+    :bornIn :USA ;
+    :fullName "Steven Allan Spielberg" ;
+    :hasWonAward :OscarBestDirector1994 ;
+    :wikidataId "Q8877" .
+
+:TheDarkKnightTrilogy a :Franchise,
+        owl:NamedIndividual ;
+    rdfs:label "The Dark Knight Trilogy" .
+
+:TimAllen a :Actor,
+        owl:NamedIndividual ;
+    :fullName "Tim Allen"^^xsd:string .
+
+:TomHanks a :Actor,
+        owl:NamedIndividual ;
+    :fullName "Tom Hanks"^^xsd:string .
+
+:WalterWhite a :Character,
+        owl:NamedIndividual ;
+    rdfs:label "Walter White"@en ;
+    :fullName "Walter White"^^xsd:string .
+
+:actsIn a owl:ObjectProperty ;
+    rdfs:label "acts in"@en ;
+    rdfs:domain :Actor ;
+    rdfs:range :AudiovisualWork .
+
+:directs a owl:ObjectProperty ;
+    rdfs:label "directs"@en ;
+    rdfs:domain :Director ;
+    rdfs:range :Movie .
+
+:episodeOf a owl:ObjectProperty ;
+    rdfs:label "episode of"@en ;
+    rdfs:domain :Episode ;
+    rdfs:range :TVSeries .
+
+:prequelOf a owl:ObjectProperty ;
+    rdfs:label "prequel of"@en ;
+    rdfs:domain :Movie ;
+    rdfs:range :Movie .
+
+:ElijahWood a :Actor,
+        owl:NamedIndividual ;
+    rdfs:label "Elijah Wood" ;
+    :birthDate "1981-01-28"^^xsd:date ;
+    :bornIn :USA ;
+    :collaboratesWith :PeterJackson ;
+    :fullName "Elijah Jordan Wood" ;
+    :wikidataId "Q181229" .
+
+:HansZimmer a :Composer,
+        owl:NamedIndividual ;
+    rdfs:label "Hans Zimmer" ;
+    :birthDate "1957-09-12"^^xsd:date ;
+    :fullName "Hans Florian Zimmer" ;
+    :wikidataId "Q161819" .
+
+:HowardShore a :Composer,
+        owl:NamedIndividual ;
+    rdfs:label "Howard Shore" ;
+    :birthDate "1946-10-18"^^xsd:date ;
+    :fullName "Howard Leslie Shore" ;
+    :wikidataId "Q193660" .
+
+:Language a owl:Class ;
+    rdfs:label "Language"@en ;
+    rdfs:seeAlso schema1:Language .
+
+:LordOfTheRingsTrilogy a :Franchise,
+        owl:NamedIndividual ;
+    rdfs:label "The Lord of the Rings Trilogy" .
+
+:Netflix a :StreamingPlatform,
+        owl:NamedIndividual ;
+    rdfs:label "Netflix" .
+
+:NewLineCinema a :ProductionCompany,
+        owl:NamedIndividual ;
+    rdfs:label "New Line Cinema" .
+
+:OscarBestPicture2004 a :AcademyAward,
+        owl:NamedIndividual ;
+    rdfs:label "Academy Award for Best Picture 2004 (Return of the King)" ;
+    :awardYear 2004 .
+
+:QuentinTarantino a :Director,
+        :Writer,
+        owl:NamedIndividual ;
+    rdfs:label "Quentin Tarantino" ;
+    :birthDate "1963-03-27"^^xsd:date ;
+    :bornIn :USA ;
+    :fullName "Quentin Jerome Tarantino" ;
+    :wikidataId "Q3772" .
+
+:SamuelLJackson a :Actor,
+        owl:NamedIndividual ;
+    rdfs:label "Samuel L. Jackson" ;
+    :birthDate "1948-12-21"^^xsd:date ;
+    :bornIn :USA ;
+    :fullName "Samuel Leroy Jackson" ;
+    :wikidataId "Q170581" .
+
+:ScienceFiction a :Genre,
+        owl:NamedIndividual ;
+    rdfs:label "Science Fiction" .
+
+:UK a :Country,
+        owl:NamedIndividual ;
+    rdfs:label "United Kingdom" .
+
+:WarnerBros a :ProductionCompany,
+        owl:NamedIndividual ;
+    rdfs:label "Warner Bros. Pictures" .
+
+:AcademyAward a owl:Class ;
+    rdfs:label "Academy Award (Oscar)"@en ;
+    rdfs:subClassOf :Award .
+
+:Action a :Genre,
+        owl:NamedIndividual ;
+    rdfs:label "Action" .
+
+:Adventure a :Genre,
+        owl:NamedIndividual ;
+    rdfs:label "Adventure" .
+
+:BreakingBad a :TVSeries,
+        owl:NamedIndividual ;
+    rdfs:label "Breaking Bad"@en ;
+    :availableOn :Netflix ;
+    :hasActor :BryanCranston ;
+    :hasEpisode :BB_S01E01,
+        :BB_S05E16 ;
+    :hasGenre :Crime,
+        :Drama ;
+    :imdbId "tt0903747"^^xsd:string ;
+    :imdbRating "9.5"^^xsd:float ;
+    :releaseYear 2008 ;
+    :title "Breaking Bad"^^xsd:string ;
+    :wikidataId "Q1079"^^xsd:string ;
+    rdfs:seeAlso <https://www.wikidata.org/entity/Q1079> .
+
+:Composer a owl:Class ;
+    rdfs:label "Composer"@en ;
+    rdfs:subClassOf :Person .
+
+:Fantasy a :Genre,
+        owl:NamedIndividual ;
+    rdfs:label "Fantasy" .
+
+:Franchise a owl:Class ;
+    rdfs:label "Franchise"@en .
+
+:HBOMax a :StreamingPlatform,
+        owl:NamedIndividual ;
+    rdfs:label "HBO Max" .
+
+:NewZealand a :Country,
+        owl:NamedIndividual ;
+    rdfs:label "New Zealand" .
+
+:Producer a owl:Class ;
+    rdfs:label "Producer"@en ;
+    rdfs:subClassOf :Person .
+
+:Character a owl:Class ;
+    rdfs:label "Character"@en ;
+    rdfs:comment "A fictional character portrayed in a movie or TV work."@en .
+
+:Crime a :Genre,
+        owl:NamedIndividual ;
+    rdfs:label "Crime" .
+
+:ProductionCompany a owl:Class ;
+    rdfs:label "Production Company"@en ;
+    rdfs:seeAlso schema1:Organization .
+
+:StreamingPlatform a owl:Class ;
+    rdfs:label "Streaming Platform"@en ;
+    rdfs:comment "A digital distribution service for films and TV (Netflix, Disney+, etc.)."@en .
+
+:Writer a owl:Class ;
+    rdfs:label "Writer"@en ;
+    rdfs:subClassOf :Person .
+
+:Award a owl:Class ;
+    rdfs:label "Award"@en .
+
+:Country a owl:Class ;
+    rdfs:label "Country"@en ;
+    rdfs:seeAlso schema1:Country .
+
+:PeterJackson a :Director,
+        :Producer,
+        :Writer,
+        owl:NamedIndividual ;
+    rdfs:label "Peter Jackson" ;
+    :birthDate "1961-10-31"^^xsd:date ;
+    :bornIn :NewZealand ;
+    :fullName "Peter Robert Jackson" ;
+    :hasWonAward :OscarBestPicture2004 ;
+    :wikidataId "Q189490" .
+
+:TVSeries a owl:Class ;
+    rdfs:label "TV Series"@en ;
+    rdfs:seeAlso schema1:TVSeries,
+        wd:Q5398426 ;
+    rdfs:subClassOf :AudiovisualWork .
+
+:ChristopherNolan a :Director,
+        :Writer,
+        owl:NamedIndividual ;
+    rdfs:label "Christopher Nolan" ;
+    :birthDate "1970-07-30"^^xsd:date ;
+    :bornIn :UK ;
+    :fullName "Christopher Edward Nolan" ;
+    :wikidataId "Q25191" .
+
+:Drama a :Genre,
+        owl:NamedIndividual ;
+    rdfs:label "Drama" .
+
+:English a :Language,
+        owl:NamedIndividual ;
+    rdfs:label "English" .
+
+:FeatureFilm a owl:Class ;
+    rdfs:label "Feature Film"@en ;
+    rdfs:subClassOf :Movie .
+
+:Episode a owl:Class ;
+    rdfs:label "Episode"@en ;
+    rdfs:seeAlso schema1:Episode ;
+    rdfs:subClassOf :AudiovisualWork .
+
+:USA a :Country,
+        owl:NamedIndividual ;
+    rdfs:label "United States of America" .
+
+:Person a owl:Class ;
+    rdfs:label "Person"@en ;
+    rdfs:comment "A human being involved in the movie industry."@en ;
+    rdfs:seeAlso schema1:Person,
+        foaf:Person .
+
+:AudiovisualWork a owl:Class ;
+    rdfs:label "Audiovisual Work"@en ;
+    rdfs:comment "Abstract superclass covering any cinematic or televisual work (movies, TV series, episodes)."@en ;
+    rdfs:seeAlso schema1:CreativeWork .
+
+:Director a owl:Class ;
+    rdfs:label "Director"@en ;
+    rdfs:subClassOf :Person .
+
+:Genre a owl:Class ;
+    rdfs:label "Genre"@en .
+
+:Actor a owl:Class ;
+    rdfs:label "Actor"@en ;
+    rdfs:subClassOf :Person ;
+    owl:disjointWith :Director .
+
+:Movie a owl:Class ;
+    rdfs:label "Movie"@en ;
+    rdfs:comment "A cinematographic work."@en ;
+    rdfs:seeAlso dbo:Film,
+        schema1:Movie,
+        wd:Q11424 ;
+    rdfs:subClassOf :AudiovisualWork ;
+    owl:disjointWith :Episode,
+        :TVSeries .
+

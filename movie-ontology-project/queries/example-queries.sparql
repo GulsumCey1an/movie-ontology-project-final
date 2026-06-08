@@ -1,0 +1,279 @@
+# =====================================================================
+# Movie Knowledge Graph — Example SPARQL Queries (v2.1 — Final)
+# Each query corresponds to a Competency Question (CQ) from the ORSD v2.
+#
+# Tested with: Apache Jena Fuseki 5.2.0 (endpoint: /movies/sparql)
+# Also runnable in Protégé SPARQL tab.
+# =====================================================================
+
+PREFIX m:    <http://www.semanticweb.org/movieontology#>
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:  <http://www.w3.org/2002/07/owl#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+
+# =====================================================================
+# Section A — Basic Retrieval Queries (CQ1–CQ8)
+# =====================================================================
+
+# --- CQ1. Which movies has Christopher Nolan directed? ---------------
+# Expected: Inception (2010), The Dark Knight (2008)
+SELECT ?title ?year WHERE {
+  ?film m:hasDirector m:ChristopherNolan ;
+        m:title       ?title ;
+        m:releaseYear ?year .
+}
+ORDER BY ?year
+
+
+# --- CQ2. Who directed The Dark Knight? ------------------------------
+# Expected: Christopher Nolan
+SELECT ?directorName WHERE {
+  m:TheDarkKnight m:hasDirector ?d .
+  ?d m:fullName ?directorName .
+}
+
+
+# --- CQ3. Which actors appeared in Pulp Fiction? ---------------------
+# Expected: John Travolta, Samuel L. Jackson, Uma Thurman
+SELECT ?actorName WHERE {
+  m:PulpFiction m:hasActor ?a .
+  ?a m:fullName ?actorName .
+}
+
+
+# --- CQ4. In which movies did Leonardo DiCaprio act? -----------------
+# Expected: Inception
+SELECT ?title WHERE {
+  ?film m:hasActor m:LeonardoDiCaprio ;
+        m:title    ?title .
+}
+
+
+# --- CQ5. Who composed the music for Inception? ----------------------
+# Expected: Hans Zimmer
+SELECT ?composerName WHERE {
+  m:Inception m:hasComposer ?c .
+  ?c m:fullName ?composerName .
+}
+
+
+# --- CQ6. What are the genres of Inception? --------------------------
+# Expected: ScienceFiction, Thriller, Action
+SELECT ?genreLabel WHERE {
+  m:Inception m:hasGenre ?g .
+  ?g rdfs:label ?genreLabel .
+}
+
+
+# --- CQ7. Movies released after 2000 with IMDb rating > 8.5 ----------
+# Expected: The Dark Knight (9.0), Inception (8.8)
+SELECT ?title ?year ?rating WHERE {
+  ?film m:title       ?title ;
+        m:releaseYear ?year ;
+        m:imdbRating  ?rating .
+  FILTER(?year > 2000 && ?rating > 8.5)
+}
+ORDER BY DESC(?rating)
+
+
+# --- CQ8. Which movies are longer than 150 minutes? ------------------
+# Expected: The Dark Knight (152 min), GoodFellas (146 min) — near threshold
+SELECT ?title ?duration WHERE {
+  ?film m:title    ?title ;
+        m:duration ?duration .
+  FILTER(?duration > 150)
+}
+ORDER BY DESC(?duration)
+
+
+# =====================================================================
+# Section B — Relationship & Inference Queries (CQ9–CQ16)
+# =====================================================================
+
+# --- CQ9. Which movies were produced by Warner Bros.? ----------------
+SELECT ?title WHERE {
+  ?film m:producedBy m:WarnerBros ;
+        m:title      ?title .
+}
+
+
+# --- CQ10. Actors who have collaborated with Christopher Nolan -------
+# (Uses symmetric collaboratesWith — reasoner required for full closure)
+SELECT DISTINCT ?actorName WHERE {
+  ?actor m:collaboratesWith m:ChristopherNolan ;
+         a m:Actor ;
+         m:fullName ?actorName .
+}
+
+
+# --- CQ11. Actors who appeared in movies directed by Quentin Tarantino --
+SELECT DISTINCT ?actorName WHERE {
+  ?film  m:hasDirector m:QuentinTarantino ;
+         m:hasActor    ?actor .
+  ?actor m:fullName    ?actorName .
+}
+
+
+# --- CQ12. Which directors were born in the United Kingdom? ----------
+SELECT ?directorName WHERE {
+  ?d a       m:Director ;
+     m:bornIn m:UK ;
+     m:fullName ?directorName .
+}
+
+
+# --- CQ13. Movies in The Dark Knight Trilogy franchise ---------------
+SELECT ?title WHERE {
+  ?film m:partOfFranchise m:TheDarkKnightTrilogy ;
+        m:title           ?title .
+}
+
+
+# --- CQ14. Directors who have won an Academy Award -------------------
+SELECT DISTINCT ?directorName WHERE {
+  ?d a m:Director ;
+     m:hasWonAward ?award ;
+     m:fullName ?directorName .
+  ?award a m:AcademyAward .
+}
+
+
+# --- CQ15. Average IMDb rating across all movies ---------------------
+# Expected: approx. 8.5
+SELECT (AVG(?rating) AS ?averageRating) WHERE {
+  ?film a m:Movie ;
+        m:imdbRating ?rating .
+}
+
+
+# --- CQ16. Total box office of movies released after 2005 ------------
+SELECT (SUM(?box) AS ?totalBoxOffice) WHERE {
+  ?film a m:Movie ;
+        m:releaseYear ?year ;
+        m:boxOffice   ?box .
+  FILTER(?year > 2005)
+}
+
+
+# =====================================================================
+# Section C — NEW Phase 2 Queries (CQ17–CQ22) — Streaming & Sequels
+# =====================================================================
+
+# --- CQ17. On which streaming platforms can I watch Inception? -------
+# Expected: Netflix, HBOMax
+SELECT ?platformLabel WHERE {
+  m:Inception m:availableOn ?p .
+  ?p rdfs:label ?platformLabel .
+}
+
+
+# --- CQ18. Which movies are available on HBO Max? --------------------
+SELECT ?title WHERE {
+  ?film m:availableOn m:HBOMax ;
+        m:title       ?title .
+}
+
+
+# --- CQ19. Get the Wikidata IDs of all directors (for federation) ----
+SELECT ?directorName ?wikidataId WHERE {
+  ?d a m:Director ;
+     m:fullName   ?directorName ;
+     m:wikidataId ?wikidataId .
+}
+ORDER BY ?directorName
+
+
+# --- CQ20. Sequel pairs in the knowledge graph -----------------------
+# Expected: Return of the King sequelOf Fellowship of the Ring
+SELECT ?sequelTitle ?prequelTitle WHERE {
+  ?sequel  m:sequelOf ?prequel ;
+           m:title    ?sequelTitle .
+  ?prequel m:title    ?prequelTitle .
+}
+
+
+# --- CQ21. All movies in the Lord of the Rings Trilogy ---------------
+SELECT ?title ?year WHERE {
+  ?film m:partOfFranchise m:LordOfTheRingsTrilogy ;
+        m:title           ?title ;
+        m:releaseYear     ?year .
+}
+ORDER BY ?year
+
+
+# --- CQ22. Movies filmed in New Zealand with their directors ---------
+SELECT ?title ?directorName WHERE {
+  ?film m:filmedIn    m:NewZealand ;
+        m:title       ?title ;
+        m:hasDirector ?d .
+  ?d    m:fullName    ?directorName .
+}
+
+
+# =====================================================================
+# Section D — Aggregation Queries (CQ23–CQ25) — NEW
+# =====================================================================
+
+# --- CQ23. Count of movies per genre ---------------------------------
+# Expected: Crime=2, Drama=3, ScienceFiction=2, etc.
+SELECT ?genreLabel (COUNT(?film) AS ?movieCount) WHERE {
+  ?film a m:Movie ;
+        m:hasGenre ?g .
+  ?g rdfs:label ?genreLabel .
+}
+GROUP BY ?genreLabel
+ORDER BY DESC(?movieCount)
+
+
+# --- CQ24. Directors ranked by number of films in the KG -------------
+SELECT ?directorName (COUNT(?film) AS ?filmCount) WHERE {
+  ?film a m:Movie ;
+        m:hasDirector ?d .
+  ?d m:fullName ?directorName .
+}
+GROUP BY ?directorName
+ORDER BY DESC(?filmCount)
+
+
+# --- CQ25. Movies with both an IMDb ID and a Wikidata ID (ready for federation) --
+SELECT ?title ?imdbId ?wikidataId WHERE {
+  ?film a m:Movie ;
+        m:title      ?title ;
+        m:imdbId     ?imdbId ;
+        m:wikidataId ?wikidataId .
+}
+ORDER BY ?title
+
+
+# =====================================================================
+# Section E — LLM-Populated Records Verification
+# =====================================================================
+
+# --- CQ-LLM1. Verify LLM-populated films are correctly typed ---------
+SELECT ?title ?year ?rating WHERE {
+  VALUES ?film { m:GoodFellas m:TheMatrix m:ToyStory }
+  ?film m:title       ?title ;
+        m:releaseYear ?year .
+  OPTIONAL { ?film m:imdbRating ?rating }
+}
+
+
+# =====================================================================
+# Section F — Federated SPARQL (demo — requires Fuseki SERVICE support)
+# =====================================================================
+
+# --- CQ-Fed1. Federate to Wikidata for external IMDb links -----------
+# Uncomment to run against a Fuseki endpoint with SERVICE support.
+#
+# SELECT ?title ?imdbUrl WHERE {
+#   ?film a m:Movie ;
+#         m:title      ?title ;
+#         m:wikidataId ?qid .
+#   BIND(IRI(CONCAT("http://www.wikidata.org/entity/", ?qid)) AS ?wd)
+#   SERVICE <https://query.wikidata.org/sparql> {
+#     ?wd <http://www.wikidata.org/prop/direct/P345> ?imdbId .
+#     BIND(CONCAT("https://www.imdb.com/title/", ?imdbId) AS ?imdbUrl)
+#   }
+# }

@@ -1,0 +1,108 @@
+{
+  "method": "Shimizu et al. 2024 modular prompt",
+  "model": "claude-sonnet-4-20250514",
+  "records": [
+    {
+      "title": "GoodFellas",
+      "localIRI": "GoodFellas",
+      "releaseYear": 1990,
+      "duration": 146,
+      "imdbRating": 8.7,
+      "directors": [
+        {
+          "fullName": "Martin Scorsese",
+          "localIRI": "MartinScorsese"
+        }
+      ],
+      "actors": [
+        {
+          "fullName": "Ray Liotta",
+          "localIRI": "RayLiotta"
+        },
+        {
+          "fullName": "Robert De Niro",
+          "localIRI": "RobertDeNiro"
+        },
+        {
+          "fullName": "Joe Pesci",
+          "localIRI": "JoePesci"
+        }
+      ],
+      "genres": [
+        "Crime",
+        "Drama"
+      ],
+      "plotSummary": "Henry Hill rises through the ranks of the Lucchese crime family in New York, enjoying wealth and power until paranoia and betrayal lead to his downfall.",
+      "imdbId": "tt0099685",
+      "wikidataId": "Q190050"
+    },
+    {
+      "title": "The Matrix",
+      "localIRI": "TheMatrix",
+      "releaseYear": 1999,
+      "duration": 136,
+      "imdbRating": 8.7,
+      "directors": [
+        {
+          "fullName": "Lilly Wachowski",
+          "localIRI": "LillyWachowski"
+        },
+        {
+          "fullName": "Lana Wachowski",
+          "localIRI": "LanaWachowski"
+        }
+      ],
+      "actors": [
+        {
+          "fullName": "Keanu Reeves",
+          "localIRI": "KeanuReeves"
+        },
+        {
+          "fullName": "Laurence Fishburne",
+          "localIRI": "LaurenceFishburne"
+        },
+        {
+          "fullName": "Carrie-Anne Moss",
+          "localIRI": "CarrieAnneMoss"
+        }
+      ],
+      "genres": [
+        "ScienceFiction",
+        "Action"
+      ],
+      "plotSummary": "A computer hacker discovers reality is a simulation created by machines. Guided by rebels, he fights to free humanity from the artificial world imprisoning them.",
+      "imdbId": "tt0133093",
+      "wikidataId": "Q172241"
+    },
+    {
+      "title": "Toy Story",
+      "localIRI": "ToyStory",
+      "releaseYear": 1995,
+      "duration": 81,
+      "imdbRating": 8.3,
+      "directors": [
+        {
+          "fullName": "John Lasseter",
+          "localIRI": "JohnLasseter"
+        }
+      ],
+      "actors": [
+        {
+          "fullName": "Tom Hanks",
+          "localIRI": "TomHanks"
+        },
+        {
+          "fullName": "Tim Allen",
+          "localIRI": "TimAllen"
+        }
+      ],
+      "genres": [
+        "Animation",
+        "Adventure"
+      ],
+      "plotSummary": "When a new space ranger toy threatens Woody's status as Andy's favourite, the two toys must work together to find their way home after getting lost.",
+      "imdbId": "tt0114709",
+      "wikidataId": "Q189869"
+    }
+  ]
+}
