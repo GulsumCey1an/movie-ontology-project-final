@@ -67,7 +67,7 @@ movie-ontology-project/
 ## 🔗 Links
 
 - **GitHub Repository:** [github.com/GulsumCey1an/movie-ontology-project-final](https://github.com/GulsumCey1an/movie-ontology-project)
-- **WIDOCO Documentation:** [GulsumCey1an.github.io/movie-ontology-project](https://gulsumcey1an.github.io/movie-ontology-project-final/movie-ontology-project/widoco-docs/index-en.html)
+- **WIDOCO Documentation:** [GulsumCey1an.github.io/movie-ontology-project-final](https://gulsumcey1an.github.io/movie-ontology-project-final/movie-ontology-project/widoco-docs/index-en.html)
 - **SPARQL Endpoint (local):** `http://localhost:3030/movies/sparql` (see setup below)
 
 ---
